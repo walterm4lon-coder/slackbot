@@ -22,6 +22,14 @@ Displays a list of all available walter bot commands and explains what they do.
 
 Sends a random fact about cats.
 
+### `/walter-dogpics`
+
+Sends a random photo of dogs.
+
+### `/walter-animepic`
+
+Sends a random anime style picture.
+
 ## Built With
 
 - Node.js
