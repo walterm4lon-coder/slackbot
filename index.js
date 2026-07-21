@@ -22,7 +22,10 @@ app.command("/walter-help", async ({ ack, respond }) => {
   await respond({
     text: `Available Commands:
 /walter-poke - Check bot latency
-/walter-catfact - Get a cat fact`
+/walter-catfact - Get a cat fact
+walter-joke - Get a not so funny joke
+walter-dogpics - DOOOOGGGGSSS!
+walter-animepic - get some qute anime:3`
   });
 });
 
@@ -55,5 +58,43 @@ ${response.data.punchline}`
     });
   } catch (err) {
     await respond({ text: "Failed to fetch a joke." });
+  }
+});
+
+app.command("/walter-dogpics", async ({ ack, respond }) => {
+  await ack();
+
+  try {
+    const response = await fetch("https://random.dog/woof.json");
+    const data = await response.json();
+
+    await respond(data.url);
+  } catch (err) {
+    await respond("Sorry, I couldn't get a dog right now. Try again later!");
+  }
+});
+
+app.command("/walter-animepic", async ({ ack, respond }) => {
+  await ack();
+
+  try {
+    const response = await fetch(
+      "https://api.nekosia.cat/api/v1/images/catgirl"
+    );
+
+    const data = await response.json();
+
+    await respond({
+      blocks: [
+        {
+          type: "image",
+          image_url: data.image.original.url,
+          alt_text: "Cute anime image"
+        }
+      ]
+    });
+  } catch (error) {
+    console.error(error);
+    await respond("Walter couldn't find an anime picture right now.");
   }
 });
